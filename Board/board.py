@@ -1,3 +1,5 @@
+from Exceptions.exceptions import BoardException
+
 class Board:
     """
         The board for our game
@@ -10,17 +12,21 @@ class Board:
         self.__bd = list()
         for i in range(6):
             self.__bd.append(list())
-            for j in range(7):
+            for _ in range(7):
                 self.__bd[i].append("- ")
 
-    def getPiece(self, position: tuple):
-        return self.__bd[position[0]][position[1]]
-
-    def setPiece(self, position: tuple, player: int):
-        if player == 0:
-            self.__bd[position[0] - 1][position[1] - 1] = "A "
-            return
-        self.__bd[position[0] - 1][position[1] - 1] = "B "
+    def setPiece(self, position: int, player: int):
+        """
+            Setter, unlike other MxN boards, here we only need the column to set a piece.
+        """
+        for i in range(5,0, -1):
+            if self.__bd[i][position-1] == "- ":
+                if player == 0:
+                    self.__bd[i][position-1] = "X "
+                    return
+                self.__bd[i][position-1] = "Y "
+                return
+        raise BoardException("No position available")
 
     def __str__(self) -> str:
         """

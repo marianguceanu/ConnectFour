@@ -4,7 +4,7 @@ from Board.board import Board
 def main():
     b = Board()
     b.setPiece(1, 0)
-    b.setPiece(2, 1)
+    b.setPiece(1, 1)
     print(str(b))
 
 

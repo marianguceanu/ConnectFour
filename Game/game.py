@@ -109,3 +109,40 @@ class Game:
                     return 0
                 return 1
         return -1
+
+    def check_winner_diag(self) -> int:
+        """
+            Checks the cases that are parallel to the 'main' and 'secondary' diagonals of the 6x7 board.
+        Returns:
+            int: 0 in case that the first player wins or 1 for the second, -1 for none.
+        """
+
+        winner = 'p'
+
+        # Main diagonal
+        for j in range(4):
+            piece = self.__bd.getPiece((0, j))
+            for i in range(2):
+                if self.__bd.getPiece((i, j+1)) != piece:
+                    winner = None
+            if winner is not None:
+                if piece == "X ":
+                    return 0
+                return 1
+
+            winner = 'p'
+
+        # Secondary diagonal
+        for j in range(4):
+            piece = self.__bd.getPiece((6, j))
+            for i in range(2):
+                if self.__bd.getPiece((6-i, j)) != piece:
+                    winner = None
+            if winner is not None:
+                if piece == "X ":
+                    return 0
+                return 1
+        return -1
+
+    def __str__(self) -> str:
+        return self.__bd.__str__()

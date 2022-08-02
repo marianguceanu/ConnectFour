@@ -1,20 +1,10 @@
-from Board.board import Board
-from Game.game import Game
+from UI.ui import *
 
 
 def main():
-    game = Game()
-    game.put_piece(1)
-    game.put_piece(1)
-    game.put_piece(2)
-    game.put_piece(1)
-    game.put_piece(3)
-    game.put_piece(2)
-    game.put_piece(4)
-    print(game.__str__())
-    print(game.check_winner_col())
-    print(game.check_winner_row())
-    print(game.check_winner_diag())
+    ui = UI()
+    ui.welcome()
+    ui.play()
 
 
 if __name__ == "__main__":

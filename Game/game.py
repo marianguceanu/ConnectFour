@@ -32,117 +32,71 @@ class Game:
             return
         self.__player = 0
 
-    def check_winner_row(self) -> int:
+    def check_winner_row(self) -> str:
         """
-            Checks if there's a winner by connecting 4 dots on a row
+            Checks if there's a winner.
         Returns:
-            int: 0 in case that the first player wins or 1 for the second, -1 for none.
+            str: A string that represents the piece of a player or 'no winner'
         """
+
+        # We check a row win first
         for i in range(6):
-            winner = "p"
+            for j in range(4):
+                piece = self.__bd.getPiece((i, j))
+                if piece != "- ":
+                    winner = piece
+                    for k in range(4):
+                        if piece != self.__bd.getPiece((i, j+k)):
+                            winner = None
+                    if winner is not None:
+                        return winner
 
-            # The middle piece from each line
-            piece = self.__bd.getPiece((i, 3))
+        return "no winner"
 
-            # First part, or all the pieces from the beginning of the line to the middle
-            for j in range(3):
-                if self.__bd.getPiece((i, j)) != piece:
-                    winner = None
-            if winner is not None:
-                if piece == "X ":
-                    return 0
-                return 1
-
-            winner = "p"
-
-            # Second part, or all the pieces from the middle to the end of the line
-            for j in range(3):
-                if self.__bd.getPiece((i, j+3)) != piece:
-                    winner = None
-            if winner is not None:
-                if piece == "X ":
-                    return 0
-                return 1
-
-        return -1
-
-    def check_winner_col(self) -> int:
+    def check_winner_col(self) -> str:
         """
             Checks if there is winner that connected pieces on the column.
         Returns:
-            int: 0 in case that the first player wins or 1 for the second, -1 for none.
+            str: Winner's piece or 'no winner'
         """
         for j in range(7):
-            winner = "p"
+            for i in range(3):
+                piece = self.__bd.getPiece((i, j))
+                if piece != "- ":
+                    winner = piece
+                    for k in range(4):
+                        if piece != self.__bd.getPiece((i+k, j)):
+                            winner = None
+                    if winner is not None:
+                        return winner
+        return "no winner"
 
-            # Choosing a piece that is going to be in all the combinations
-            piece = self.__bd.getPiece((2, j))
-
-            # First 4 pieces on a col
-            for i in range(4):
-                if self.__bd.getPiece((i, j)) != piece:
-                    winner = None
-            if winner is not None:
-                if piece == "X ":
-                    return 0
-                return 1
-
-            winner = "p"
-
-            # Next 4 pieces
-            for i in range(4):
-                if self.__bd.getPiece((i+1, j)) != piece:
-                    winner = None
-            if winner is not None:
-                if piece == "X ":
-                    return 0
-                return 1
-
-            winner = "p"
-
-            # Last 4 pieces
-            for i in range(4):
-                if self.__bd.getPiece((i+2, j)) != piece:
-                    winner = None
-            if winner is not None:
-                if piece == "X ":
-                    return 0
-                return 1
-        return -1
-
-    def check_winner_diag(self) -> int:
+    def check_winner_diag(self) -> str:
         """
             Checks the cases that are parallel to the 'main' and 'secondary' diagonals of the 6x7 board.
         Returns:
-            int: 0 in case that the first player wins or 1 for the second, -1 for none.
+            str: Winner's piece or 'no winner'.
         """
+        for i in range(3):
+            for j in range(4):
+                piece = self.__bd.getPiece((i, j))
+                if piece != "- ":
+                    winner = piece
+                    for k in range(4):
+                        if piece != self.__bd.getPiece((i+k, j+k)):
+                            winner = None
+                    if winner is not None:
+                        return winner
 
-        winner = 'p'
-
-        # Main diagonal
-        for j in range(4):
-            piece = self.__bd.getPiece((0, j))
-            for i in range(2):
-                if self.__bd.getPiece((i, j+1)) != piece:
-                    winner = None
-            if winner is not None:
-                if piece == "X ":
-                    return 0
-                return 1
-
-            winner = 'p'
-
-        # Secondary diagonal
-        for j in range(4):
-            piece = self.__bd.getPiece((6, j))
-            for i in range(2):
-                if self.__bd.getPiece((6-i, j)) != piece:
-                    winner = None
-            if winner is not None:
-                if piece == "X ":
-                    return 0
-                return 1
-        return -1
+                piece = self.__bd.getPiece((5-i, j))
+                if piece != "- ":
+                    winner = piece
+                    for k in range(4):
+                        if piece != self.__bd.getPiece((5-i-k, j+k)):
+                            winner = None
+                    if winner is not None:
+                        return winner
+        return "no winner"
 
     def __str__(self) -> str:
         return self.__bd.__str__()

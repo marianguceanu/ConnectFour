@@ -43,3 +43,4 @@ class UI:
             print("Player 1 won by connecting 4 dots on a diagonal!")
         elif diag_win == "X ":
             print("Player 2 won by connecting 4 dots on a diagonal!")
+        

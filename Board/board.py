@@ -13,7 +13,7 @@ class Board:
             for _ in range(7):
                 self.__bd[i].append("- ")
 
-    def getPiece(self, position: tuple):
+    def get_piece(self, position: tuple) -> str:
         """
             Simple getter
         Args:
@@ -24,7 +24,7 @@ class Board:
         """
         return self.__bd[position[0]][position[1]]
 
-    def setPiece(self, position: int, player: int) -> int:
+    def set_piece(self, position: int, player: int) -> int:
         """
             Simple setter
         Args:
@@ -34,7 +34,7 @@ class Board:
         Returns:
             int: A convenient integer to know if there is a success or not ( 1 for success, 0 for failure )
         """
-        for i in range(5, 0, -1):
+        for i in range(5, -1, -1):
             if self.__bd[i][position-1] == "- ":
                 if player == 0:
                     self.__bd[i][position-1] = "X "
